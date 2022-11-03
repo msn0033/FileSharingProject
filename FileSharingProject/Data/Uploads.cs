@@ -1,4 +1,6 @@
-﻿namespace FileSharingProject.Data
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace FileSharingProject.Data
 {
     public class Uploads
     {
@@ -11,5 +13,6 @@
         public string ContentType { get; set; }
         public decimal Size { get; set; }
         public string UserId { get; set; }
+        public IdentityUser User { get; set; }
     }
 }
