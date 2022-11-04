@@ -27,17 +27,19 @@ namespace FileSharingProject.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task< IActionResult> Login(LoginViewModel loginVM)
         {
             if (ModelState.IsValid)
             {
-                var user=new IdentityUser { Email = loginVM.Email };
-                var result=await _signInManager.PasswordSignInAsync(user, loginVM.Password, true,true);
+               
+                var result= await _signInManager.PasswordSignInAsync(loginVM.Email, loginVM.Password, true,true);
                 if(result.Succeeded)
                 {
                     return RedirectToAction("Create", "uploads");
                 }
+                
             }
             return View(loginVM);
         }
@@ -54,10 +56,12 @@ namespace FileSharingProject.Controllers
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = Register.Email, Email = Register.Email };
+
                 var result=await _userManager.CreateAsync(user,Register.Password);
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
+
                     return RedirectToAction("Create", "Uploads");
                 }
                 foreach (var err in result.Errors)
@@ -67,6 +71,14 @@ namespace FileSharingProject.Controllers
             }
 
             return View(Register);
+        }
+
+        [HttpGet]
+        public async Task <IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login));
+            
         }
     }
 }

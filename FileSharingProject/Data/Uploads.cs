@@ -13,6 +13,7 @@ namespace FileSharingProject.Data
         public string ContentType { get; set; }
         public decimal Size { get; set; }
         public string UserId { get; set; }
+        public DateTime DateUpload { get; set; }
         public IdentityUser User { get; set; }
     }
 }
