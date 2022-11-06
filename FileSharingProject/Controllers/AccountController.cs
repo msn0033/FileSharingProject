@@ -80,5 +80,12 @@ namespace FileSharingProject.Controllers
             return RedirectToAction(nameof(Login));
             
         }
+        [HttpGet]
+        public IActionResult Info()
+        {
+           
+            return View();
+
+        }
     }
 }

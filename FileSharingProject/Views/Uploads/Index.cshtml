@@ -1,0 +1,65 @@
+﻿@model IEnumerable<FileSharingProject.Models.UploadViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    var ImageContentType = new[] { "image/png", "image/jpg", "image/jpeg", "application/pdf" };
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Pirview
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrginalName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SizeFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.contentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UploadDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AsQueryable())
+        {
+            <tr style="cursor:pointer">
+                <td >
+                    @if (ImageContentType.Contains(item.contentType))
+                    {
+                        <img src="~/Uploads/@item.FileName" class="img-fluid" width="70" height="70" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrginalName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SizeFile)mb
+                  
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.contentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UploadDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.UploadId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

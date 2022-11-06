@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(o =>
 {
-    o.UseSqlServer(builder.Configuration.GetSection("ConStrMac").Value);
+    o.UseSqlServer(builder.Configuration.GetSection("ConStrWindows").Value);
 });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();

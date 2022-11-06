@@ -4,11 +4,11 @@
 @{
 }
 
-@model FileSharingProject.Models.UploadViewModel
+@model FileSharingProject.Models.InputUpload
 
 
 @{
-    ViewData["Title"] = "CreateFile";
+    ViewData["Title"] = "UploadFile";
 }
 
 <h1>Create</h1>
@@ -16,18 +16,21 @@
 <h4>UploadViewModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="input-group">
+                <input asp-for="File" onchange="ChooseFile()" id="CustomeFile" class="form-control"   aria-label="Upload">
+                <button class="btn btn-outline-secondary" type="submit" >Button</button>
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+  @*          <div class="form-group">
                 <label asp-for="File" class="control-label"></label>
                 <input asp-for="File" class="form-control" type="file" />
                 <span asp-validation-for="File" class="text-danger"></span>
-            </div>
+            </div>*@
           
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+       
         </form>
     </div>
 </div>
@@ -35,4 +38,13 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+    function ChooseFile() {
+        var ele=document.getElementById('CustomeFile');
+        var name=ele.files.length>0?ele.files[0].name:"choose file";
+        ele.innerText=name;
+
+    }
+</script>
 

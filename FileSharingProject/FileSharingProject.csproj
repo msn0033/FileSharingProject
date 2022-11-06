@@ -28,7 +28,8 @@
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Views\Uploads\" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Views\Uploads\" />
+    <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 </Project>

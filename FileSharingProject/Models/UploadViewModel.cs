@@ -1,14 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace FileSharingProject.Models
+﻿namespace FileSharingProject.Models
 {
     public class UploadViewModel
     {
-
-
-        [Required]
-        public IFormFile File { get; set; }
+        public string UploadId { get; set; }
+        public string OrginalName { get; set; }
+        public string FileName { get; set; }
+        public decimal SizeFile { get; set; }
+        public string contentType { get; set; }
+        public DateTime UploadDate { get; set; }
     }
 }
-
