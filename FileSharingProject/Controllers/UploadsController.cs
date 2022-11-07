@@ -7,6 +7,7 @@ using FileSharingProject.Data;
 using FileSharingProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -86,7 +87,8 @@ namespace FileSharingProject.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            var selectedItem = await _DbContext.Uploads.FindAsync(id);
+            var selectedItem = await _DbContext.Uploads.Where(x => x.UserId == this.UserId)
+                .FirstOrDefaultAsync(u => u.Id == id);
             if (selectedItem is null)
                 return NotFound();
             return View(selectedItem);
@@ -95,11 +97,19 @@ namespace FileSharingProject.Controllers
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirm(string id)
         {
-            var selectedItem = await _DbContext.Uploads.FindAsync(id);
+            var selectedItem = await _DbContext.Uploads.Where(x => x.UserId == this.UserId)
+                .FirstOrDefaultAsync(u => u.Id == id);
             if (selectedItem is null)
                 return NotFound();
+
+            var root = _webHostEnvironment.WebRootPath;
+            var fullPath = Path.Combine(root, "Uploads", selectedItem.FileName);
+            System.IO.File.Delete(fullPath);
             _DbContext.Uploads.Remove(selectedItem);
             await _DbContext.SaveChangesAsync();
+
+
+
             return RedirectToAction(nameof(Index));
         }
     }
