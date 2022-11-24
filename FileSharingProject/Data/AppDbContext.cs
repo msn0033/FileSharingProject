@@ -6,10 +6,10 @@ namespace FileSharingProject.Data
 {
     public class AppDbContext:IdentityDbContext<IdentityUser>
     {
+      
         public AppDbContext( DbContextOptions options):base(options)
         {
-
         }
-        public DbSet<Uploads> Uploads { get; set; }
+        public DbSet<Uploads> Uploads { get; set; } = null!;
     }
 }

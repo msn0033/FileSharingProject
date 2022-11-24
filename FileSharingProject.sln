@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSharingProject", "FileSharingProject\FileSharingProject.csproj", "{89788338-2F3E-43EB-A310-EB33E36ABE33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSharingProject", "FileSharingProject\FileSharingProject.csproj", "{89788338-2F3E-43EB-A310-EB33E36ABE33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{923533C2-C87D-4303-9874-E292A5F4D587}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{89788338-2F3E-43EB-A310-EB33E36ABE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89788338-2F3E-43EB-A310-EB33E36ABE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89788338-2F3E-43EB-A310-EB33E36ABE33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{923533C2-C87D-4303-9874-E292A5F4D587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{923533C2-C87D-4303-9874-E292A5F4D587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{923533C2-C87D-4303-9874-E292A5F4D587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{923533C2-C87D-4303-9874-E292A5F4D587}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

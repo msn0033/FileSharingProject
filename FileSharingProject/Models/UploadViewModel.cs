@@ -8,5 +8,6 @@
         public decimal SizeFile { get; set; }
         public string contentType { get; set; }
         public DateTime UploadDate { get; set; }
+        public long DownloadCount { get; internal set; }
     }
 }

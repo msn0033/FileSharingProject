@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FileSharingProject.Models.UploadViewModel>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="container">
+    @{
+        foreach (var item in Model)
+        {
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-sm-7 col-md-5 col-lg-4 col-xl-3">
+                        @if (item.contentType.ToLower().StartsWith("image"))
+                        {
+                            <img src="~/Uploads/@item.FileName" class="img-fluid img-thumbnail imgsize" alt="@item.FileName">
+
+                        }
+                    </div>
+                    <div class=" col-sm-5 col-md-7 col-lg-8 col-xl-9">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.OrginalName</h5>
+                            <p class="card-text"></p>
+                            <p class="card-text"><small class="text-muted">@item.UploadDate</small></p>
+                            <div class="d-flex flex-row-reverse">
+                                <button class="btn btn-success"> Download</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+
+</div>

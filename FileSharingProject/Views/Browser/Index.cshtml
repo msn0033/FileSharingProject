@@ -1,0 +1,120 @@
+﻿@model IEnumerable<FileSharingProject.Models.UploadViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container">
+    @{
+        foreach (var item in Model)
+        {
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-sm-7 col-md-5 col-lg-4 col-xl-3">
+                        @if (item.contentType.ToLower().StartsWith("image"))
+                        {
+                            <img src="~/Uploads/@item.FileName" class="img-fluid img-thumbnail imgsize" alt="@item.FileName">
+                        }
+                    </div>
+                    <div class=" col-sm-5 col-md-7 col-lg-8 col-xl-9">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.OrginalName</h5>
+                            <br>
+                            <div class="row">
+
+                                <div class="col-3">
+                                    <p class="card-text"><small class="text-muted">@item.UploadDate</small></p>
+                                </div>
+                                <div class="col-4">
+                                    @{
+                                        var size = item.SizeFile / 1024;
+                                        if (size < 1024)
+                                        {
+                                            <span> @Math.Floor(size) Kb</span>
+                                        }
+                                        else
+                                        {
+                                            <span> @Math.Floor(size) mb</span>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-5">
+                                    @item.DownloadCount
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row-reverse">
+                                <a class="btn btn-success" asp-controller="Uploads" asp-action="Download" asp-route-UploadId="@item.UploadId">Download</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+
+</div>
+@*
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UploadId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrginalName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SizeFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.contentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UploadDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrginalName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SizeFile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@

@@ -3,6 +3,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1>Search File</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <form asp-action="Search">
+            <div class="input-group input-group-lg mb-3">
+                <input type="text" name="search" class="form-control" placeholder="Search File Name" aria-label="Recipient's username">
+                <button class="btn btn-outline-secondary ms-1" type="submit" id="button-addon2">Search</button>
+            </div>
+        </form>
+    </div>
 </div>

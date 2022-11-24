@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -29,18 +31,19 @@ namespace FileSharingProject.Controllers
         public IActionResult Index()
         {
 
-            IQueryable<UploadViewModel> result = _DbContext.Uploads.Where(u => u.UserId == this.UserId)
-                .Select(x => new UploadViewModel
+            IQueryable<UploadViewModel> listresult = _DbContext.Uploads.Where(u => u.UserId == this.UserId)
+                .OrderByDescending(x => x.UploadDate).Select(x => new UploadViewModel
                 {
                     UploadId = x.Id,
                     OrginalName = x.OrginalName,
                     FileName = x.FileName,
                     contentType = x.ContentType,
                     SizeFile = x.Size / 1000000,
-                    UploadDate = x.UploadDate
+                    UploadDate = x.UploadDate,
+                    DownloadCount = x.DownloadCount
                 });
 
-            return View(result);
+            return View(listresult);
         }
 
 
@@ -74,7 +77,8 @@ namespace FileSharingProject.Controllers
                     FileName = fileName,
                     ContentType = upload.File.ContentType,
                     Size = upload.File.Length,
-                    UserId = this.UserId
+                    UserId = this.UserId,
+                    
 
                 });
                 await _DbContext.SaveChangesAsync();
@@ -111,6 +115,24 @@ namespace FileSharingProject.Controllers
 
 
             return RedirectToAction(nameof(Index));
+        }
+
+     
+        [HttpGet]
+        public async Task<IActionResult> Download(string UploadId)
+        {
+            Uploads selectedFile = await _DbContext.Uploads.FirstOrDefaultAsync(u => u.Id==UploadId);
+            if (selectedFile is null)
+                return NotFound();
+
+            selectedFile.DownloadCount++;
+            _DbContext.Update(selectedFile);
+            await _DbContext.SaveChangesAsync();
+            var Path = "~/Uploads/" + selectedFile.FileName;
+
+           Response.Headers.Add("Expires",DateTime.Now.AddDays(-3).ToLongDateString());
+            Response.Headers.Add("Cache-Control", "no-chache");
+            return File(Path,selectedFile.ContentType,selectedFile.OrginalName);
         }
     }
 }
