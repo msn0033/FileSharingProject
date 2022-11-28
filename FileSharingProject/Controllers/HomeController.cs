@@ -18,7 +18,18 @@ namespace FileSharingProject.Controllers
 
         public IActionResult Index()
         {
-            _dbContext.Uploads.OrderByDescending(x => x.DownloadCount).Take(5);
+            var result=_dbContext.Uploads.OrderByDescending(x => x.DownloadCount).Take(5)
+                 .Select(x => new UploadViewModel
+                 {
+                     UploadId = x.Id,
+                     OrginalName = x.OrginalName,
+                     FileName = x.FileName,
+                     contentType = x.ContentType,
+                     SizeFile = x.Size,
+                     UploadDate = x.UploadDate,
+                     DownloadCount = x.DownloadCount,
+                 });
+            ViewBag.Popular = result;
             return View();
         }
 

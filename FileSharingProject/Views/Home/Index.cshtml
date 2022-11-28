@@ -1,12 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1>Search File</h1>
-</div>
-
+﻿<div class="text-center p-4"> <h2>Search File</h2></div>
 <div class="row justify-content-center">
+
     <div class="col-md-10">
         <form asp-action="Search">
             <div class="input-group input-group-lg mb-3">
@@ -14,5 +8,43 @@
                 <button class="btn btn-outline-secondary ms-1" type="submit" id="button-addon2">Search</button>
             </div>
         </form>
+    </div>
+    <div class="col-md-10 text-center">
+        <h2>Popular Downloads</h2>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>FileName</th>
+                    <th>Size</th>
+                    <th>Upload Date</th>
+                    <th>ContentType</th>
+                    <th>DownLoad Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (UploadViewModel item in ViewBag.Popular)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                if (item.contentType.ToLower().StartsWith("image"))
+                                {
+                                    <img class="img-fluid img-thumbnail imgsize" src="~/Uploads/@item.FileName" alt="@item.FileName">
+                                }
+                            }
+                        </td>
+                        <td>@item.OrginalName </td>
+                        <td>@item.SizeFile </td>
+                        <td>@item.UploadDate </td>
+                        <td>@item.contentType </td>
+                        <td>@item.DownloadCount </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
     </div>
 </div>

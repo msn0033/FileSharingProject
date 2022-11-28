@@ -13,6 +13,10 @@
 
 <h1>Create</h1>
 
+<div class="text-end">
+    <a class="btn btn-outline-primary" asp-action="Index">Upload</a>
+</div>
+
 <h4>UploadViewModel</h4>
 <hr />
 <div class="row">
@@ -20,31 +24,31 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="input-group">
-                <input asp-for="File" onchange="ChooseFile()" id="CustomeFile" class="form-control"   aria-label="Upload">
-                <button class="btn btn-outline-secondary" type="submit" >Button</button>
+                <input asp-for="File" onchange="ChooseFile()" id="CustomeFile" class="form-control" aria-label="Upload">
+
                 <span asp-validation-for="File" class="text-danger"></span>
+
             </div>
-  @*          <div class="form-group">
-                <label asp-for="File" class="control-label"></label>
-                <input asp-for="File" class="form-control" type="file" />
-                <span asp-validation-for="File" class="text-danger"></span>
-            </div>*@
-          
-       
+            <br />
+            <button class="btn btn-outline-primary" type="submit">upload</button>
+
+
+            @*          <div class="form-group">
+                    <label asp-for="File" class="control-label"></label>
+                    <input asp-for="File" class="form-control" type="file" />
+                    <span asp-validation-for="File" class="text-danger"></span>
+                </div>*@
+
+
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-<script>
-    function ChooseFile() {
-        var ele=document.getElementById('CustomeFile');
-        var name=ele.files.length>0?ele.files[0].name:"choose file";
-        ele.innerText=name;
+<script>function ChooseFile() {
+        var ele = document.getElementById('CustomeFile');
+        var name = ele.files.length > 0 ? ele.files[0].name : "choose file";
+        ele.innerText = name;
 
-    }
-</script>
+    }</script>
 
