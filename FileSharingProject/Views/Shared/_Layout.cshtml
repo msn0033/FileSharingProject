@@ -35,7 +35,7 @@
     <!-- Google Fonts Open sans -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700,800" rel="stylesheet">
 
-   <!-- my css-->
+    <!-- my css-->
     <link href="~/app.css" rel="stylesheet">
 
 
@@ -62,45 +62,81 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <ul class="navbar-nav mr-auto mu-navbar-nav">
-                        <li class="nav-item active">
+
+                        <li class="nav-item @(Context.Request.Path.Value?.ToLower()=="/"?"active":"")">
                             <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a href="about-us.html">About us</a>
                         </li>
-                        <li class="nav-item @(Context.Request.Path.Value.ToLower() == "/home/privacy"?"active":"ee")">
+                        <li class="nav-item @(Context.Request.Path.Value?.ToLower() == "/home/privacy"?"active":"ee")">
                             <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a asp-area="" asp-controller="uploads" asp-action="Index">Upload</a>
-                            </li>
+                        @{
+                            if (User.Identity is not null)
+                            {
+                                if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item">
+                                        <a asp-area="" asp-controller="uploads" asp-action="Index">Upload</a>
+                                    </li>
+                                }
 
+                            }
                         }
-                        <li class="nav-item @(Context.Request.Path.Value.ToLower() =="/browser"?"active":"")">
+
+                        <li class="nav-item @(Context.Request.Path.Value?.ToLower() =="/browser"?"active":"")">
                             <a asp-controller="Browser" asp-action="Index">Browser</a>
                         </li>
+                    </ul>
 
-                        <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Info</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="navbar-nav mu-navbar-nav w-auto d-flex">
 
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="info">@User.Identity.Name</a>
 
-                                }
-                                else
-                                {
-                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-                                }
-                            </div>
-                        </li>
-                        <li class="nav-item"><a href="contact.html">Contact us</a></li>
-                        <li class="nav-item"><a href="404.html">404 Page</a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Account" asp-action="info">@User.Identity.Name</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+
+                    </ul>
+
+
+
+
+
+                    @*  <li class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Info</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="info">@User.Identity.Name</a>
+
+                    }
+                    else
+                    {
+                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    }
+                    </div>
+                    </li>*@
+
                     </ul>
                 </div>
             </nav>
@@ -211,10 +247,9 @@
 
     </footer>
     <!-- End footer -->
-
     <!-- JavaScript -->
 
-     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
@@ -241,7 +276,8 @@
     <script type="text/javascript" src="~/assets/js/custom.js"></script>
 
     <!-- About us Skills Circle progress  -->
-    <script>// First circle
+    <script>
+        // First circle
         new Circlebar({
             element: "#circle-1",
             type: "progress",

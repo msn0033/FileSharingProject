@@ -377,9 +377,11 @@ a:focus,
 
 .mu-navbar-nav {
 	display: block;
-	text-align: right;
+	text-align: start;
 	width: 100%;
+	padding-left: 30px;
 }
+
 
 .mu-navbar-nav li {
 	list-style: none;
