@@ -1,7 +1,9 @@
 ﻿using FileSharingProject.Data;
+using FileSharingProject.Helpers.Mail;
 using FileSharingProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace FileSharingProject.Controllers
 {
@@ -9,11 +11,16 @@ namespace FileSharingProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly AppDbContext _dbContext;
+        private readonly IMailHelper _mailHelper;
 
-        public HomeController(ILogger<HomeController> logger,AppDbContext dbContext)
+        //get userid
+        private string? UserId { get { return User.FindFirstValue(ClaimTypes.NameIdentifier); } }
+
+        public HomeController(ILogger<HomeController> logger,AppDbContext dbContext,IMailHelper mailHelper)
         {
             _logger = logger;
             this._dbContext = dbContext;
+            this._mailHelper = mailHelper;
         }
 
         public IActionResult Index()
@@ -55,6 +62,36 @@ namespace FileSharingProject.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact(ContactViewModel  contact)
+        {
+          
+            await _dbContext.Contacts.AddAsync(new Data.Contact
+            {
+                Name=contact.Name,
+                Subject=contact.Subject,
+                Email=contact.Email,
+                Message=contact.Message,
+                UserId= UserId
+               
+            });
+          
+            TempData["Message"] = "Message is Success";
+            _mailHelper.SendMail(new InputEmailMessage
+            {
+                Email=contact.Email,
+                Body=contact.Message,
+                Subject=contact.Subject
+            });
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Contact));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -11,13 +11,6 @@ namespace test
     {
         public List<string>? States { get; set; }
     }
-     void PossibleDereferenceNullExamples(string? message)
-    {
-        Console.WriteLine(message?.Length); // CS8602
-
-        var c = new Person { States = { "Red", "Yellow", "Green" } }; // CS8670
-    }
-    
-
+ 
 }
 

@@ -27,9 +27,13 @@
     <None Remove="Swashbuckle.AspNetCore" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Views\Uploads\" />
+    <None Remove="Helpers\" />
+    <None Remove="Helpers\Mail\" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Helpers\Mail\" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 using FileSharingProject.Data;
+using FileSharingProject.Helpers.Mail;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,9 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(o =>
 {
-    o.UseSqlServer(builder.Configuration.GetSection("ConStrWindows").Value);
+    o.UseSqlServer(builder.Configuration.GetSection("ConStrMac").Value);
 });
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddTransient<IMailHelper, MailHelper>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

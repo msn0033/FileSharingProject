@@ -11,5 +11,6 @@ namespace FileSharingProject.Data
         {
         }
         public DbSet<Uploads> Uploads { get; set; } = null!;
+        public DbSet<Contact> Contacts { get; set; } = null!;
     }
 }
