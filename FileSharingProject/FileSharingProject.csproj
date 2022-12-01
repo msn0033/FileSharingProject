@@ -21,6 +21,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
+    <PackageReference Include="MailKit" Version="3.4.3" />
+    <PackageReference Include="MimeKit" Version="3.4.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +31,8 @@
     <None Remove="Views\Uploads\" />
     <None Remove="Helpers\" />
     <None Remove="Helpers\Mail\" />
+    <None Remove="MailKit" />
+    <None Remove="MimeKit" />
   </ItemGroup>
 
   <ItemGroup>

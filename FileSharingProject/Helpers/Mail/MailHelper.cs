@@ -1,50 +1,49 @@
 ﻿using System;
-
-using System.Net.Mail;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace FileSharingProject.Helpers.Mail
 {
 	public class MailHelper:IMailHelper
 	{
+       
 
-        public async Task< bool> SendMail(MailRequest model)
+        public async Task<bool> SendMail(MailRequest model)
         {
 
-            try
+            MailSettings settings = GetMailSettings();
+            var msg = new MimeMessage
             {
-                var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+                Sender = MailboxAddress.Parse(settings.FromEmail),
+                Subject=model.Subject,
+            };
+            msg.To.Add(MailboxAddress.Parse(model.ToEmail));
 
-                var x = config.GetSection("MailSettings").Get<Dictionary<string, object>>();
-                string json = System.Text.Json.JsonSerializer.Serialize(x);
-                MailSettings settings = System.Text.Json.JsonSerializer.Deserialize<MailSettings>(json)!;
+            var builder = new BodyBuilder();
+            builder.HtmlBody = model.Body;
+            msg.Body = builder.ToMessageBody();
 
-                using (SmtpClient smtpClient = new SmtpClient(settings.Host, int.Parse(settings.Port)))
-                {
-                    var msg = new MailMessage();
-                    msg.To.Add(model.Email);
-                    msg.Body = model.Body;
-                    msg.Subject = model.Subject;
-                    msg.From = new MailAddress(settings.From, settings.Sender, System.Text.Encoding.UTF8);
-                    msg.IsBodyHtml = true;
+            msg.From.Add(new MailboxAddress(settings.DisplayName, settings.FromEmail));
 
-                    smtpClient.EnableSsl = true;
-                    smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new System.Net.NetworkCredential(settings.From, settings.Password);
-                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-
-                    await smtpClient.SendMailAsync(msg);    
-                    return true;
-                }
-                return false;
-            }
-         
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.InnerException);
-                Console.WriteLine(ex.Message);
-                return false;
-            }
+               
+            using var smtpClient = new SmtpClient();
+            await smtpClient.ConnectAsync(settings.Host, int.Parse(settings.Port),MailKit.Security.SecureSocketOptions.StartTls);
+            await smtpClient.AuthenticateAsync(settings.FromEmail, settings.Password);
+            await smtpClient.SendAsync(msg);
+            await smtpClient.DisconnectAsync(true);
+            return true;
         }
+
+        private MailSettings GetMailSettings()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+            var x = config.GetSection("MailSettings").Get<Dictionary<string, object>>();
+            string json = System.Text.Json.JsonSerializer.Serialize(x);
+             MailSettings settings = System.Text.Json.JsonSerializer.Deserialize<MailSettings>(json)!;
+            return settings;
+        }
+
     }
 }
 

@@ -72,24 +72,30 @@ namespace FileSharingProject.Controllers
         public async Task<IActionResult> Contact(ContactViewModel  contact)
         {
           
-            await _dbContext.Contacts.AddAsync(new Data.Contact
+            bool result=await _mailHelper.SendMail(new MailRequest
             {
-                Name=contact.Name,
-                Subject=contact.Subject,
-                Email=contact.Email,
-                Message=contact.Message,
-                UserId= UserId
-               
-            });
-          
-            TempData["Message"] = "Message is Success";
-            _mailHelper.SendMail(new MailRequest
-            {
-                Email=contact.Email,
+                ToEmail=contact.Email,
                 Body=contact.Message,
                 Subject=contact.Subject
             });
-            await _dbContext.SaveChangesAsync();
+
+            if(result == true)
+            {
+                await _dbContext.Contacts.AddAsync(new Data.Contact
+                {
+                    Name = contact.Name,
+                    Subject = contact.Subject,
+                    Email = contact.Email,
+                    Message = contact.Message,
+                    UserId = UserId
+
+                });
+                await _dbContext.SaveChangesAsync();
+                TempData["Message"] = "Message is Success";
+            }
+            else
+                TempData["Message"] = "Message Error";
+
             return RedirectToAction(nameof(Contact));
         }
 
