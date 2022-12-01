@@ -21,5 +21,6 @@ namespace FileSharingProject.Data
         public DateTime UploadDate { get; set; }
         public IdentityUser User { get; set; }
         public long DownloadCount { get; set; }
+        public string ImageName { get; set; }
     }
 }

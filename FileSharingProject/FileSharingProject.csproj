@@ -33,7 +33,5 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Helpers\Mail\" />
   </ItemGroup>
 </Project>

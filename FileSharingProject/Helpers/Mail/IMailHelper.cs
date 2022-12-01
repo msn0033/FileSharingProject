@@ -3,7 +3,7 @@ namespace FileSharingProject.Helpers.Mail
 {
 	public interface IMailHelper
 	{
-		public void SendMail(InputEmailMessage inputEmailMessage);
+		public Task<bool> SendMail(MailRequest mailRequest);
 	}
 }
 

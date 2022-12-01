@@ -83,7 +83,7 @@ namespace FileSharingProject.Controllers
             });
           
             TempData["Message"] = "Message is Success";
-            _mailHelper.SendMail(new InputEmailMessage
+            _mailHelper.SendMail(new MailRequest
             {
                 Email=contact.Email,
                 Body=contact.Message,

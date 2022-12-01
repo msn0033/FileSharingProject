@@ -9,11 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(o =>
 {
-    o.UseSqlServer(builder.Configuration.GetSection("ConStrMac").Value);
+    o.UseSqlServer(builder.Configuration.GetSection("ConStrWindows").Value);
 });
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddTransient<IMailHelper, MailHelper>();
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
