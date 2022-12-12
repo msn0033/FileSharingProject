@@ -1,6 +1,7 @@
 ﻿using FileSharingProject.Data;
 using FileSharingProject.Helpers.Mail;
 using FileSharingProject.Models;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -99,6 +100,19 @@ namespace FileSharingProject.Controllers
             return RedirectToAction(nameof(Contact));
         }
 
+        [HttpGet]
+        public IActionResult SetCulture(string culture)
+        {
+            if (!string.IsNullOrEmpty(culture))
+            {
+                Response.Cookies.Append(
+                    CookieRequestCultureProvider.DefaultCookieName,
+                    CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                    new CookieOptions { Expires=DateTimeOffset.UtcNow.AddDays(1)}
+                    ) ;
+            }
+            return RedirectToAction(nameof(Index));
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
