@@ -35,24 +35,17 @@
     <None Remove="MimeKit" />
     <None Remove="Resources\" />
     <None Remove="Resources\Views\" />
-    <None Remove="Resources\Views\Shared\" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\" />
-    <Folder Include="Resources\" />
-    <Folder Include="Resources\Views\" />
-    <Folder Include="Resources\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Views\Shared\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    <EmbeddedResource Update="Resources\Controllers\LanguageController.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Resources\Views\Shared\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <EmbeddedResource Update="Resources\Controllers\LanguageController.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
