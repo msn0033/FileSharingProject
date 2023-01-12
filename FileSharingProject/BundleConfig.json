@@ -1,0 +1,25 @@
+[
+  {
+    "outputFileName": "wwwroot/css/final.min.css",
+    "inputFiles": [
+      //    <!-- bootstrap -->
+      "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      //    <!-- Slick slider -->
+      "wwwroot/assets/css/slick.css",
+      // <!-- Gallery Lightbox -->
+      "wwwroot/assets/css/magnific-popup.css",
+
+      "wwwroot/css/site.css",
+      "wwwroot/css/style.css",
+      "wwwroot/css/main.css"
+    ],
+    "minify": { "enabled": true },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/css/final-rtl.min.css",
+    "inputFiles": [ "wwwroot/css/main-rtl.css" ],
+    "minify": { "enabled": true },
+    "sourceMap": false
+  }
+]

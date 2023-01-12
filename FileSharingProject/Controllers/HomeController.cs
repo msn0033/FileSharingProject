@@ -33,7 +33,7 @@ namespace FileSharingProject.Controllers
                      OrginalName = x.OrginalName,
                      FileName = x.FileName,
                      contentType = x.ContentType,
-                     SizeFile = x.Size,
+                     Size = x.Size,
                      UploadDate = x.UploadDate,
                      DownloadCount = x.DownloadCount,
                  });
@@ -51,7 +51,7 @@ namespace FileSharingProject.Controllers
                     OrginalName = x.OrginalName,
                     FileName = x.FileName,
                     contentType = x.ContentType,
-                    SizeFile = x.Size / 1000000,
+                    Size = x.Size / 1000000,
                     UploadDate = x.UploadDate
                 }).ToList();
             return View(result);

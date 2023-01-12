@@ -31,12 +31,12 @@
                             @{
                                 if (item.contentType.ToLower().StartsWith("image"))
                                 {
-                                    <img class="img-fluid img-thumbnail imgsize" src="~/Uploads/@item.FileName" alt="@item.FileName">
+                                    <img class="img-fluid img-thumbnail imgsize lazyload" data-src="/Uploads/@item.FileName" alt="@item.FileName">
                                 }
                             }
                         </td>
                         <td>@item.OrginalName </td>
-                        <td>@item.SizeFile </td>
+                        <td>@item.Size </td>
                         <td>@item.UploadDate </td>
                         <td>@item.contentType </td>
                         <td>@item.DownloadCount </td>

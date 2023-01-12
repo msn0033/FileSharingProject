@@ -1,0 +1,48 @@
+﻿@model FileSharingProject.Models.RegisterVM
+@inject IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = @localizer["Register."];
+}
+
+
+
+
+<!-- Start Contact Content -->
+<div class="mu-contact-content">
+    <div class="row">
+        <div><h1>@localizer["Register."]</h1></div>
+
+        <div class="col-md-12">
+            <hr />
+            <div class="mu-contact-form-area">
+                <form method="post" asp-action="Register" class="mu-contact-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <span class="fa fa-envelope mu-contact-icon"></span>
+                        <input type="email" asp-for="Email" class="form-control" placeholder="@localizer["EmailLable"]">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="fa fa-folder-open-o mu-contact-icon"></span>
+                        <input type="password" asp-for="Password" class="form-control" placeholder="@localizer["Password"]" >
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <span class="fa fa-folder-open-o mu-contact-icon"></span>
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="@localizer["ConfirmPassword"]" required>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="mu-send-msg-btn"><span>@localizer["Register."]</span></button>
+                </form>
+                <a asp-action="index">Home</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End Contact Content -->
+

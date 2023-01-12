@@ -1,20 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Builder
 @using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization;
 @using Microsoft.Extensions.Options
 
-  @inject IOptions<RequestLocalizationOptions> locOptions
-   
-      @{
-        var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-        
-    }
+@inject IOptions<RequestLocalizationOptions> locOptions
+@inject IViewLocalizer loclizer
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+
+}
 <table class="table">
     <tr>
-        <td>Culture</td>
+        <td>@loclizer["Culture"]</td>
         <td>@requestCulture?.RequestCulture.Culture.Name</td>
     </tr>
     <tr>
-        <td>Ui CultureU</td>
+        <td>Ui Culture</td>
         <td>@requestCulture?.RequestCulture.UICulture.Name</td>
     </tr>
     <tr>

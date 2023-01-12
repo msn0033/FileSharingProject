@@ -5,8 +5,13 @@ using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FileSharingProject.Data;
+using FileSharingProject.Helpers.AutoMapper;
+using FileSharingProject.Helpers.UploadFile;
 using FileSharingProject.Models;
+using FileSharingProject.ServicesManager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,121 +23,62 @@ namespace FileSharingProject.Controllers
     [Authorize]
     public class UploadsController : Controller
     {
-        private readonly AppDbContext _DbContext;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        public string UserId { get { return User.FindFirstValue(ClaimTypes.NameIdentifier); } }
-        public UploadsController(AppDbContext appDbContext, IWebHostEnvironment webHostEnvironment)
-        {
-            this._DbContext = appDbContext;
-            _webHostEnvironment = webHostEnvironment;
-        }
 
-        // GET: /<controller>/
+        private readonly IUploadService _UploadService;
+        private readonly IMapper _mapper;
+
+        public string UserId { get { return User.FindFirstValue(ClaimTypes.NameIdentifier); } }
+
+        public UploadsController(IUploadService uploadService, IMapper mapper)
+        {
+            _UploadService = uploadService;
+            this._mapper = mapper;
+        }
+        //Get; Uploads
         public IActionResult Index()
         {
+            var source = _UploadService.GetAllByUserId(UserId).ToList();
 
-            IQueryable<UploadViewModel> listresult = _DbContext.Uploads.Where(u => u.UserId == this.UserId)
-                .OrderByDescending(x => x.UploadDate).Select(x => new UploadViewModel
-                {
-                    UploadId = x.Id,
-                    OrginalName = x.OrginalName,
-                    FileName = x.FileName,
-                    contentType = x.ContentType,
-                    SizeFile = x.Size / 1000000,
-                    UploadDate = x.UploadDate,
-                    DownloadCount = x.DownloadCount
-                });
+            var dest = _mapper.Map<List<UploadViewModel>>(source);
 
-            return View(listresult);
+            return View(dest);
         }
 
-
+        //Get:Uploads/Create
         [HttpGet]
-        // GET: /<controller>/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
             return View();
         }
-
+        //post: Uploads/Create
         [HttpPost]
-        public async Task<IActionResult> Create(InputUpload upload)
+        public async Task<IActionResult> Create(InputFile input)
         {
             if (ModelState.IsValid)
             {
-
-                var guid = Guid.NewGuid().ToString();
-                var name = upload.File.FileName.Substring(0, upload.File.FileName.IndexOf('.')) + '-' + guid;
-                var Extension = Path.GetExtension(upload.File.FileName);
-
-                var fileName = string.Concat(name, Extension);
-                var root = _webHostEnvironment.WebRootPath;
-                var fullPath = Path.Combine(root, "Uploads", fileName);
-                using (var fs = System.IO.File.Create(fullPath))
-                {
-                    await upload.File.CopyToAsync(fs);
-                }
-                await _DbContext.Uploads.AddAsync(new Uploads
-                {
-                    OrginalName = upload.File.FileName,
-                    FileName = fileName,
-                    ContentType = upload.File.ContentType,
-                    Size = upload.File.Length,
-                    UserId = this.UserId,
-                    
-
-                });
-                await _DbContext.SaveChangesAsync();
+                var inputUpload = UploadFile.MapInformationFile(input.File);
+                inputUpload.FileName = await UploadFile.UploadAnyFile(input.File);
+                inputUpload.UserId = UserId;
+                var model = _mapper.Map<Upload>(inputUpload);
+                await _UploadService.CreateAsync(model);
+                await _UploadService.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(upload);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var selectedItem = await _DbContext.Uploads.Where(x => x.UserId == this.UserId)
-                .FirstOrDefaultAsync(u => u.Id == id);
-            if (selectedItem is null)
-                return NotFound();
-            return View(selectedItem);
-        }
-        [HttpPost]
-        [ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirm(string id)
-        {
-            var selectedItem = await _DbContext.Uploads.Where(x => x.UserId == this.UserId)
-                .FirstOrDefaultAsync(u => u.Id == id);
-            if (selectedItem is null)
-                return NotFound();
-
-            var root = _webHostEnvironment.WebRootPath;
-            var fullPath = Path.Combine(root, "Uploads", selectedItem.FileName);
-            System.IO.File.Delete(fullPath);
-            _DbContext.Uploads.Remove(selectedItem);
-            await _DbContext.SaveChangesAsync();
-
-
-
-            return RedirectToAction(nameof(Index));
+            return View(input);
         }
 
      
+
         [HttpGet]
-        public async Task<IActionResult> Download(string UploadId)
+        public async Task< ActionResult> DownloadFile(string uploadId)
         {
-            Uploads selectedFile = await _DbContext.Uploads.FirstOrDefaultAsync(u => u.Id==UploadId);
-            if (selectedFile is null)
+           var model= await _UploadService.GetByIdAsync(uploadId);
+            if(model is null)
                 return NotFound();
-
-            selectedFile.DownloadCount++;
-            _DbContext.Update(selectedFile);
-            await _DbContext.SaveChangesAsync();
-            var Path = "~/Uploads/" + selectedFile.FileName;
-
-           Response.Headers.Add("Expires",DateTime.Now.AddDays(-3).ToLongDateString());
-            Response.Headers.Add("Cache-Control", "no-chache");
-            return File(Path,selectedFile.ContentType,selectedFile.OrginalName);
+            _UploadService.IncurmentDownloadCount(model);
+            await _UploadService.SaveAsync();
+            var pathfull = "~/Uploads/" + model.FileName;
+            return File(pathfull, model.ContentType, model.OrginalName);
         }
     }
 }

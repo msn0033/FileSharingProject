@@ -10,7 +10,7 @@ namespace FileSharingProject.Data
         public AppDbContext( DbContextOptions options):base(options)
         {
         }
-        public DbSet<Uploads> Uploads { get; set; } = null!;
+        public DbSet<Upload> Uploads { get; set; } = null!;
         public DbSet<Contact> Contacts { get; set; } = null!;
     }
 }

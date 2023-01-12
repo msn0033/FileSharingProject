@@ -1,0 +1,22 @@
+﻿
+@inject IViewLocalizer localizer
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    <li class="nav-item">
+        <a asp-area="" asp-controller="Auth" asp-action="info">@User.Identity.Name</a>
+    </li>
+    <li class="nav-item">
+        <a asp-area="" asp-controller="Auth" asp-action="Logout">@localizer["Logout"]</a>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a asp-area="" asp-controller="Auth" asp-action="Login">@localizer["Login"]</a>
+    </li>
+    <li class="nav-item">
+        <a asp-area="" asp-controller="Auth" asp-action="Register">@localizer["Register"]</a>
+    </li>
+}

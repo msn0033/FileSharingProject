@@ -11,3 +11,6 @@
     .main-content h2 {
         color: #0091ea;
     }
+.table thead th {
+    text-align: center;
+}
