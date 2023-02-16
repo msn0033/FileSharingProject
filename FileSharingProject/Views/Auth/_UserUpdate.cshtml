@@ -1,0 +1,32 @@
+﻿@using Microsoft.Extensions.Localization;
+@model FileSharingProject.Models.UserViewModel
+@inject IStringLocalizer<SharedResource> localizer
+
+<div style="width:100%; height:300px; background-color:aliceblue" class="show" id="updateuser">
+
+    <!-- Start Contact Content -->
+    <div class="mu-contact-form-area text-center">
+        <form method="post" asp-action="info" class="mu-contact-form">
+            <div class="form-group">
+                <span class="fa fa-envelope mu-contact-icon"></span>
+                <input type="text" asp-for="FirstName" class="form-control" placeholder="@localizer["FirstName"]">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="fa fa-envelope mu-contact-icon"></span>
+                <input type="text" asp-for="LastName" class="form-control" placeholder="@localizer["LastName"]">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="fa fa-envelope mu-contact-icon"></span>
+                <input type="email" asp-for="Email" class="form-control" readonly placeholder="@localizer["Email"]">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <button type="submit" class="mu-send-msg-btn"><span>@localizer["Save"]</span></button>
+        </form>
+    </div>
+    <!-- End Contact Content -->
+
+
+</div>
+

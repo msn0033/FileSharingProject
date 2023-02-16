@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
       <PrivateAssets>all</PrivateAssets>
@@ -40,7 +43,6 @@
 
   <ItemGroup>
     <Folder Include="Helpers\AutoMapper\" />
-    <Folder Include="Resources\Controllers\" />
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 
@@ -55,22 +57,22 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SharedResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Views\Account\Register.ar.Designer.cs">
+    <Compile Update="Resources\Views\Auth\Register.ar.Designer.cs">
       <DependentUpon>Register.ar.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\Views\Account\Register.Designer.cs">
+    <Compile Update="Resources\Views\Auth\Register.Designer.cs">
       <DependentUpon>Register.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\Views\Account\Login.ar.Designer.cs">
+    <Compile Update="Resources\Views\Auth\Login.ar.Designer.cs">
       <DependentUpon>Login.ar.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\Views\Account\Login.Designer.cs">
+    <Compile Update="Resources\Views\Auth\Login.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Login.resx</DependentUpon>
@@ -86,19 +88,19 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SharedResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Account\Register.ar.resx">
+    <EmbeddedResource Update="Resources\Views\Auth\Register.ar.resx">
       <LastGenOutput>Register.ar.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Account\Register.resx">
+    <EmbeddedResource Update="Resources\Views\Auth\Register.resx">
       <LastGenOutput>Register.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Account\Login.ar.resx">
+    <EmbeddedResource Update="Resources\Views\Auth\Login.ar.resx">
       <LastGenOutput>Login.ar.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Account\Login.resx">
+    <EmbeddedResource Update="Resources\Views\Auth\Login.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Login.Designer.cs</LastGenOutput>
     </EmbeddedResource>

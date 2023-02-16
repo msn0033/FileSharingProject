@@ -1,0 +1,16 @@
+﻿
+@using FileSharingProject.Resources;
+@using Microsoft.Extensions.Localization;
+@model UserViewModel  
+@inject IStringLocalizer<SharedResource> localizer
+
+<h2>Info</h2>
+<p>
+    <strong>@localizer["FirstName"] :</strong><span>@Model?.FirstName</span>
+</p>
+<p>
+    <strong>@localizer["LastName"] :</strong><span>@Model?.LastName</span>
+</p>
+<p>
+    <strong>@localizer["Email"] :</strong><span>@Model?.Email</span>
+</p>

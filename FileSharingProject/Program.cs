@@ -32,7 +32,20 @@ builder.Services.AddDbContext<AppDbContext>(o =>
 {
     o.UseSqlServer(builder.Configuration.GetSection("ConStrWindows").Value);
 });
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(op=> 
+{
+    op.SignIn.RequireConfirmedEmail = true;
+
+})
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
+{
+    o.TokenLifespan = TimeSpan.FromHours(3);
+});
+
+
 builder.Services.AddTransient<IMailHelper, MailHelper>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IUploadService, UploadService>();
@@ -40,6 +53,21 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Auth/Login";
 });
+//authentication google&facebook
+#region authentication google&facebook
+//builder.Services.AddAuthentication().
+//    AddFacebook( option =>
+//    {
+//        option.AppId = builder.Configuration["Authentication:Facebook:AppId"]!;
+//        option.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
+//    }).
+//    AddGoogle(option =>
+//    {
+//        // var x = builder.Configuration.GetSection("Authentication:Google:ClientId").Value;
+//        option.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+//        option.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+//    });
+#endregion
 
 
 var app = builder.Build();

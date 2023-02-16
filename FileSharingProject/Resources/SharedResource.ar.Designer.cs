@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FileSharingProject.Resources {
+namespace FileSharingProject {
     using System;
     
     

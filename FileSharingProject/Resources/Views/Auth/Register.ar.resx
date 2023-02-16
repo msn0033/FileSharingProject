@@ -120,6 +120,12 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>تأكيد كلمة المرور</value>
   </data>
+  <data name="FirstNameL" xml:space="preserve">
+    <value>الاسم الاول</value>
+  </data>
+  <data name="LastNameL" xml:space="preserve">
+    <value>الاسم الاخير</value>
+  </data>
   <data name="Login." xml:space="preserve">
     <value>دخول</value>
   </data>

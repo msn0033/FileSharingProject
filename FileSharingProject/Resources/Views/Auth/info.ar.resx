@@ -117,43 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmPassword" xml:space="preserve">
-    <value>تأكيد كلمة المرور الجديدة</value>
-  </data>
   <data name="Email" xml:space="preserve">
-    <value>البريد الالكتروني</value>
-  </data>
-  <data name="EmailLable" xml:space="preserve">
-    <value>البريد الالكتروني</value>
-  </data>
-  <data name="FieldEmailOrPassword" xml:space="preserve">
-    <value>اسم المستخدم او كلمة المرور غير صحيحة !!</value>
+    <value>الايميل</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>الاسم الاول</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>الاسم الاخير</value>
-  </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>كلمة مرور جديدة</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>كلمة المرور</value>
-  </data>
-  <data name="PasswordLable" xml:space="preserve">
-    <value>كلمة المرور</value>
-  </data>
-  <data name="PasswordSuccess" xml:space="preserve">
-    <value>تم تغيير كلمة المرور بنجاح!</value>
-  </data>
-  <data name="Required" xml:space="preserve">
-    <value>{0} مطلوب</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>حفظ</value>
-  </data>
-  <data name="SuccessMessage" xml:space="preserve">
-    <value>تم التنفيذ بنجاح</value>
   </data>
 </root>

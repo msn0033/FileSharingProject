@@ -16,7 +16,7 @@ namespace FileSharingProject.Data
 		public bool Open { get; set; }
 
 		[ForeignKey(nameof(UserId))]
-		public IdentityUser? Users { get; set; } = null;//nevagate
+		public ApplicationUser? Users { get; set; } = null;//nevagate
 
 	}
 }

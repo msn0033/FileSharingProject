@@ -13,7 +13,10 @@
 <div class="mu-contact-content">
     <div class="row">
         <div><h1>@localizer["Login."]</h1></div>
-       
+            @if (TempData["PasswordSuccess"] != null)
+        {
+            <div class="col-md-12 alert alert-success">@TempData["PasswordSuccess"]</div>
+        }
         <div class="col-md-12">
             <hr />
             <div class="mu-contact-form-area">  
@@ -33,6 +36,10 @@
 
                
                     <button type="submit" class="mu-send-msg-btn"><span>@localizer["Login."]</span></button>
+                    <a asp-action="ExternalLogin" asp-route-provider="Facebook" class="mu-send-msg-btn"><span>Facebook</span></a>
+
+                    <a asp-action="ExternalLogin" asp-route-provider="Google" class="mu-send-msg-btn"><span>Google</span></a>
+
                 </form>
                 <a asp-action="index">Home</a>
             </div>

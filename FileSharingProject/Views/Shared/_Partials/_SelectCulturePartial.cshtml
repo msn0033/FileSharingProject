@@ -16,19 +16,8 @@
     <form method="post" asp-controller="CultureCurrent" asp-action="SetCulture" asp-route-returnUrl="@returnUrl">
     <select name="culture"
     onchange="this.form.submit();"
-    //asp-for="@requestCulture.RequestCulture.UICulture.Name"
-    //asp-items="cultureItems"
-    >
-
-            @foreach (var item in cultureItems.ToList())
-            {
-
-                bool isSelected = requestCulture.RequestCulture.UICulture.Name == @item.Value ? true : false;
-                <option selected="@isSelected" value="@(item.Value)">
-                @item.Text
-                </option>
-            }
-    
+    asp-for="@requestCulture.RequestCulture.UICulture.Name"
+    asp-items="cultureItems" >
     </select>
     </form>
 </div>

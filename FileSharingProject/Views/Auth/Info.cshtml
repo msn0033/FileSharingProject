@@ -1,24 +1,74 @@
-﻿
+﻿@model UserViewModel
 @{
     ViewData["Title"] = "Info";
+}
+@{
+
 }
 
 <div class="row">
     <div class="col-md-3 pb-4">
-
-        <h2>Info</h2>
-        <p>
-            <strong>Logged In User :</strong> : <span>@User.Identity.Name</span>
-        </p>
-
+        <partial name="_UserInfo" model="Model" />
+        <button onclick="updateuser()" class="btn btn-success"> update info</button>
         <br />
-
         <h2>Manage</h2>
-        <a class="btn btn-outline-primary">
+        <a class="btn btn-outline-primary" onclick="changpassword()">
             Change Password
         </a>
     </div>
+
     <div class="col-md-8">
-        <div style="width:100%; height:300px; background-color:aliceblue"></div>
+    
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <partial name="_UserUpdate" model="Model" />
+
+        @if (Model.HasPassword)
+        {
+            <partial name="_ChangePassword" model="new ChangPasswordVM()"  />
+        }
+        else
+        {
+            <partial name="_AddPassword" model="new AddPasswordViewModel()" />
+        }
+        
     </div>
 </div>
+
+<script>
+
+    function updateuser() {
+
+        var c = document.getElementById("changpassword");
+        c.classList.remove("show");
+        c.classList.remove("hide");
+        c.classList.add("hide");
+
+        var x = document.getElementById("updateuser");
+        if (x.classList.contains("hide")) {
+            x.classList.remove("hide");
+            x.classList.add("show");
+        }
+        else {
+            x.classList.remove("show");
+            x.classList.add("hide");
+        }
+
+    }
+    function changpassword(){
+        var x = document.getElementById("updateuser");
+        x.classList.remove("show");
+        x.classList.remove("hide");
+        x.classList.add("hide");
+
+        var x = document.getElementById("changpassword");
+        if (x.classList.contains("hide")) {
+            x.classList.remove("hide");
+            x.classList.add("show");
+        }
+        else {
+            x.classList.remove("show");
+            x.classList.add("hide");
+        }
+
+    }
+</script>

@@ -16,4 +16,14 @@ namespace FileSharingProject.Helpers.AutoMapper
          // CreateMap<>
         }
     }
+    public class UserProfile:Profile
+    {
+        public UserProfile()
+        {
+            CreateMap<ApplicationUser, UserViewModel>()
+                .ForMember(x=>x.HasPassword,op=>op.MapFrom(x=>x.PasswordHash !=null));
+           // CreateMap<>
+        }
+
+    }
 }
